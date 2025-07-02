@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert at the end
+void insertEnd(struct Node** head, int value) {
+    struct Node* newNode = createNode(value);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+}
+
+// Function to search an element
+void searchElement(struct Node* head, int key) {
+    int position = 0;
+    while (head != NULL) {
+        if (head->data == key) {
+            printf("Element %d found at position %d\n", key, position);
+            return;
+        }
+        head = head->next;
+        position++;
+    }
+    printf("Element %d not found in the list\n", key);
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Sample linked list: 10 -> 20 -> 30 -> 40 -> 50
+    insertEnd(&head, 10);
+    insertEnd(&head, 20);
+    insertEnd(&head, 30);
+    insertEnd(&head, 40);
+    insertEnd(&head, 50);
+
+    int key = 30;
+    searchElement(head, key);
+
+    return 0;
+}
